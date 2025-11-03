@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   #
   include Pundit::Authorization
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :authonticate_user!
+  before_action :authenticate_user!
   allow_browser versions: :modern
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized

@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  # enum role: { user: 0, admin: 1 }
+  enum :role, { user: 0, admin: 1 }
 
   has_one_attached :avatar_image
 
@@ -24,14 +24,14 @@ class User < ApplicationRecord
     begin
       tempfile = Down.download(avatar_url)
       self.avatar_image.attach(io: tempfile, filename: tempfile.original_filename)
-    rescue
+    rescue Down::Error => e
       Rails.logger.error "Avatar URL download failed: #{e.message}"
       errors.add(:avatar_url, "is not a valid image URL or could not be downloaded")
     end
   end
 
   def broadcast_dashboard_update
-    Turbo::StreamsChannel.broadcast_dashboard_update_to(
+    Turbo::StreamsChannel.broadcast_update_to(
     "admin_dashboard_stats",
     target: "admin_dashboard_stats",
     partial: "admin/dashboard/stats",
