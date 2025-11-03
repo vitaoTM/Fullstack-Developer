@@ -1,0 +1,24 @@
+<h1>My Profile</h1>
+<div class="card mb-3" style="max-width: 540px">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <% if @user_profile.avatar_image.attached? %>
+        <%= image_tag @user_profile.avatar_image, class: "img-fluid rouded-start" %>
+      <% else %>
+        <img src="https://placehold.in/200@2x" class="img-fluid rouded-start">
+      <% end %>
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title"><%= @user_profile.full_name %></h5>
+        <p class="card-text">
+          <small class="text-muted"><%= @user_profile.email %></small>
+        </p>
+        <p class="card-text">
+          <strong>Role:</strong><%= @user_profile.role.humanize %>
+        </p>
+        <%= link_to "Edit my profile", edit_profile_path, class: "btn btn-primary" %>
+      </div>
+    </div>
+  </div>
+</div>

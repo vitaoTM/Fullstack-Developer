@@ -1,0 +1,72 @@
+<h1>Edit My Profile</h1>
+
+<%= form_with(model: @user_profile, url: profile_path, method: :patch) do |f| %>
+  <% if @user_profile.errors.any? %>
+    <div class="alert alert-danger">
+      <h2><%= pluralize(@user_profile.errors.count, "error") %>
+        prohibited this profile from being saved:</h2>
+      <ul>
+        <% @user_profile.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= f.label :full_name, class: "form-label" %>
+    <%= f.text_field :full_name, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :email, class: "form-label" %>
+    <%= f.email_field :email, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :avatar_image, "Upload New Avatar", class: "form-label" %>
+    <%= f.file_field :avatar_image, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :avatar_url, "Or paste Avatar URL", class: "form-label" %>
+    <%= f.url_field :avatar_url, class: "form-control", placeholder: "https://..." %>
+  </div>
+
+  <hr>
+  <p class="text-muted">Leave fields below blank if you don't want to change your password.</p>
+
+  <div class="mb-3">
+    <%= f.label :password, class: "form-label" %>
+    <%= f.password_field :password, class: "form-control", autocomplete: "new-password" %>
+    <% if @minimum_password_length %>
+      <div class="form-text"><%= @minimum_password_length %>
+        characters minimum</div>
+    <% end %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :password_confirmation, class: "form-label" %>
+    <%= f.password_field :password_confirmation,
+                     class: "form-control",
+                     autocomplete: "new-password" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.submit "Update Profile", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+<hr>
+
+<div class="mt-4 p-3 bg-light border border-danger rounded">
+  <h3>Delete Account</h3>
+  <p>This action is permanent and cannot be undone.</p>
+  <%= button_to "Delete My Account",
+  profile_path,
+  method: :delete,
+  data: {
+    turbo_confirm: "Are you sure you want to delete your account?",
+  },
+  class: "btn btn-danger" %>
+</div>
