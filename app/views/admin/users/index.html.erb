@@ -1,0 +1,10 @@
+<h1>Admin::Users#index</h1>
+<td>
+  <%= button_to(
+    @user.admin? ? "Make User" : "Make Admin",
+    admin_toggle_user_role_path(@user),
+    method: :patch,
+    class: @user.admin? ? "btn btn-sm btn-warning" : "btn btn-sm btn-success",
+  ) %>
+
+</td>
