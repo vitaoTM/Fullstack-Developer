@@ -69,3 +69,5 @@ gem "roo", "~> 3.0"
 gem "down", "~> 5.4"
 
 gem "foreman", "~> 0.90.0"
+
+gem "tailwindcss-rails", "~> 4.4"
