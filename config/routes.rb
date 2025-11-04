@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
 
   namespace :admin do
+    get "user_imports/new"
+    get "user_imports/create"
+    get "user_imports/show"
     get "users/index"
     get "users/show"
     get "users/new"

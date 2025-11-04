@@ -1,0 +1,14 @@
+<h1>Import Progress</h1>
+<%= turbo_stream_from @user_import %>
+
+<%= turbo_frame_tag "user_import_status" do %>
+  <h3>Status:
+    <span class="badge bg-info"><%= @user_import.status.humanize %></span></h3>
+<% end %>
+
+<%= turbo_frame_tag "inport_progress_bar" do %>
+  <%= render "progress", import: @user_import %>
+<% end %>
+
+<h4>Error Log:</h4>
+<pre class="bg-light p-3"><%= @user_import.error_log.presence || "No errors." %></pre>

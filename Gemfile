@@ -67,3 +67,5 @@ gem "pundit", "~> 2.5"
 gem "sidekiq", "~> 8.0"
 gem "roo", "~> 3.0"
 gem "down", "~> 5.4"
+
+gem "foreman", "~> 0.90.0"

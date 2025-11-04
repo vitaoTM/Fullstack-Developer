@@ -1,0 +1,20 @@
+<% total = import.total_count.to_i
+processed = import.processed_count.to_i
+percentage = total.zero? ? 0 : (processed.to_f / total * 100).round %>
+
+<strong><%= processed %>
+  /
+  <%= total %>
+  Users Imported</strong>
+<div class="progress mt-2">
+  <div
+    class="progress-bar"
+    role="progressbar"
+    style="width: <%= percentage %>%;"
+    aria-valuenow="<%= percentage %>"
+    aria-valuemin="0"
+    aria-valuemax="100"
+  >
+    <%= percentage %>%
+  </div>
+</div>
