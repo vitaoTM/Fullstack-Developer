@@ -11,17 +11,20 @@ class ProfilesController < ApplicationController
 
   def update
     authorize @user_profile
-    if @user_profile.update(profile_params)
-      redirect_to profile_path, notice: "Profile updated"
+
+    params_to_update = profile_params
+
+    if params_to_update[:password].blank?
+      params_to_update.delete(:password)
+      params_to_update.delete(:password_confirmation)
+    end
+
+    if @user_profile.update(params_to_update)
+      bypass_sign_in(@user_profile) if params_to_update[:password].present?
+      redirect_to profile_path, notice: "Profile updated."
     else
       render :edit, status: :unprocessable_entity
     end
-  end
-
-  def destroy
-    authorize @user_profile
-    @user_profile.destroy
-    redirect_to root_path, notice: "Your account has been deleted."
   end
 
   private
