@@ -15,11 +15,11 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def create
-    @user = User.new
+    @user = User.new(user_params)
     authorize @user
 
     if @user.save
-      redirect_to admin_user_path(@user), notice: "User created"
+      redirect_to admin_user_path(@user), notice: "User created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -31,8 +31,16 @@ class Admin::UsersController < Admin::BaseController
 
   def update
     authorize @user
-    if @user.update(user_params)
-      redirect_to admin_user_path(@user), notice: "User updated"
+
+    # Use the same password-blank-check from the profiles controller
+    params_to_update = user_params
+    if params_to_update[:password].blank?
+      params_to_update.delete(:password)
+      params_to_update.delete(:password_confirmation)
+    end
+
+    if @user.update(params_to_update)
+      redirect_to admin_user_path(@user), notice: "User updated."
     else
       render :edit, status: :unprocessable_entity
     end
@@ -41,19 +49,21 @@ class Admin::UsersController < Admin::BaseController
   def destroy
     authorize @user
     @user.destroy
-    redirect_to admin_users_path, notice: "User deleted"
+    redirect_to admin_users_path, notice: "User deleted."
   end
 
+  # Our custom action
   def toggle_role
-    authorize @user, :toggle_role?
+    authorize @user, :toggle_role? # Specific policy check
 
     if @user.admin?
-      @user.user!
+      @user.user! # Toggles to user
     else
-    @user.admin!
+      @user.admin! # Toggles to admin
     end
-  end
 
+    redirect_to admin_users_path, notice: "User role updated."
+  end
 
   private
 
@@ -61,7 +71,17 @@ class Admin::UsersController < Admin::BaseController
     @user = User.find(params[:id])
   end
 
+  # --- THIS IS THE CRITICAL METHOD ---
+  # Make sure your file has this exact method
   def user_params
-    params.require(:user).permit(:full_name, :email, :password, :password_confirmations, :role, :avatar_image, :avatar_url)
+    params.require(:user).permit(
+      :full_name,
+      :email,
+      :password,
+      :password_confirmation,
+      :role,
+      :avatar_image,
+      :avatar_url
+    )
   end
 end
