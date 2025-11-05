@@ -28,11 +28,6 @@
       </div>
 
       <div class="mb-4">
-        <%= f.label :avatar_url, "Or paste Avatar URL", class: "form-label" %>
-        <%= f.url_field :avatar_url, class: "form-input", placeholder: "https://..." %>
-      </div>
-
-      <div class="mb-4">
         <%= f.label :password, class: "form-label" %>
         <%= f.password_field :password, autocomplete: "new-password", class: "form-input" %>
         <% if @minimum_password_length %>

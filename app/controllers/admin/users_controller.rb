@@ -71,8 +71,6 @@ class Admin::UsersController < Admin::BaseController
     @user = User.find(params[:id])
   end
 
-  # --- THIS IS THE CRITICAL METHOD ---
-  # Make sure your file has this exact method
   def user_params
     params.require(:user).permit(
       :full_name,
