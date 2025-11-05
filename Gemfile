@@ -67,12 +67,12 @@ gem "foreman", "~> 0.90.0"
 
 gem "tailwindcss-rails", "~> 4.4"
 gem "active_storage_validations"
+gem "devise", "~> 4.9"
+gem "pundit", "~> 2.5"
+gem "roo", "~> 3.0"
+gem "sidekiq", "~> 8.0"
 # Gemfile
 group :development do
-  gem "devise", "~> 4.9"
-  gem "pundit", "~> 2.5"
-  gem "sidekiq", "~> 8.0"
-  gem "roo", "~> 3.0"
   gem "web-console"
 end
 
