@@ -53,7 +53,6 @@ end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
-  gem "web-console"
 end
 
 group :test do
@@ -62,22 +61,26 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem "devise", "~> 4.9"
-gem "pundit", "~> 2.5"
-gem "sidekiq", "~> 8.0"
-gem "roo", "~> 3.0"
-gem "down", "~> 5.4"
+# gem "down", "~> 5.4"
 
 gem "foreman", "~> 0.90.0"
 
 gem "tailwindcss-rails", "~> 4.4"
-
+gem "active_storage_validations"
 # Gemfile
-group :development, :test do
+group :development do
+  gem "devise", "~> 4.9"
+  gem "pundit", "~> 2.5"
+  gem "sidekiq", "~> 8.0"
+  gem "roo", "~> 3.0"
+  gem "web-console"
+end
+
+group :test do
+  gem "rspec-sidekiq"
   gem "rspec-rails"       # The main RSpec testing framework
   gem "factory_bot_rails" # For creating test data ("factories")
   gem "faker"             # For generating fake data (names, emails)
   gem "shoulda-matchers"  # For simple one-line tests (e.g., "validate_presence_of")
-  gem "rspec-sidekiq"
   gem "pundit-matchers", "~>4.0"
 end

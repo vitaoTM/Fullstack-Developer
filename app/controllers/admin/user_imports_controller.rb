@@ -4,10 +4,11 @@ class Admin::UserImportsController < Admin::BaseController
   end
 
   def create
-    @user_import = UserImport.new
+    @user_import = UserImport.new(user_import_params)
 
     if @user_import.save
-      ImportUsersJob.perform_later(@user_import_params)
+      ImportUsersJob.perform_later(@user_import)
+
       redirect_to admin_user_import_path(@user_import), notice: "Import started."
     else
       render :new, status: :unprocessable_entity

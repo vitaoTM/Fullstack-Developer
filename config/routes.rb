@@ -1,6 +1,11 @@
+require "sidekiq/web"
+
 Rails.application.routes.draw do
   # This MUST be at the top, outside any 'admin' namespace
   devise_for :users
+  authenticate :user, ->(u) { u.admin? } do
+    mount Sidekiq::Web => "/sidekiq"
+  end
 
   # Admin-specific routes
   namespace :admin do

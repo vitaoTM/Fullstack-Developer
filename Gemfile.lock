@@ -44,6 +44,12 @@ GEM
       erubi (~> 1.11)
       rails-dom-testing (~> 2.2)
       rails-html-sanitizer (~> 1.6)
+    active_storage_validations (3.0.2)
+      activejob (>= 6.1.4)
+      activemodel (>= 6.1.4)
+      activestorage (>= 6.1.4)
+      activesupport (>= 6.1.4)
+      marcel (>= 1.0.3)
     activejob (8.0.4)
       activesupport (= 8.0.4)
       globalid (>= 0.3.6)
@@ -111,8 +117,6 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.6.2)
     dotenv (3.1.8)
-    down (5.4.2)
-      addressable (~> 2.8)
     drb (2.2.3)
     ed25519 (1.4.0)
     erb (5.1.3)
@@ -440,12 +444,12 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
+  active_storage_validations
   bootsnap
   brakeman
   capybara
   debug
   devise (~> 4.9)
-  down (~> 5.4)
   factory_bot_rails
   faker
   foreman (~> 0.90.0)

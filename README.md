@@ -1,3 +1,111 @@
+# Fullstack-Developer TEST UMANNI 
+
+- This is a developper test by umanni
+
+## Installation
+
+- Use Ruby 3.4 or latter and rails 8.0 or latter
+- Use PostgreSQL 18 or latter
+- Use Yarn 1.22.22
+- Node v25.1.0
+
+Check your versions: 
+
+```
+  ruby -v
+  rails -v 
+  postgres --version
+  yarn --version
+  node -v
+```
+
+System dependencies
+
+GEMS: 
+
+- Devise;
+- Pundit;
+
+## Configuration 
+
+- Clone this repo or fork it `git clone git@github.com:vitaoTM/Fullstack-Developer.git`
+
+#### To run local:
+
+```
+# Create database and migrate it
+bin/rails db:create db:migrate
+
+```
+
+Create admin user, must be done through rails console:
+
+- Do not forget to change your credentials:
+
+```
+rails console
+
+# You will enter rails console:
+# run:
+
+# This will create a admin user if you do not read this and only copy and paste to your terminal (you can delete this line)
+
+adm = User.create(full_name: "Admin", email: "admin@admin.com", password: "123456", password_confirmation: "123456")
+adm.admin!
+
+u = User.create(full_name: "ADD YOU NAME HERE", email: "ADD YOUR EMAIL HERE", password: "SET A PASSWORD", password_confirmation: "CONFIRM YOUR PASSWORD")
+
+u.admin!
+
+exit
+
+```
+
+- Run server:
+```
+bin/dev
+```
+
+- To exit server just press Ctrl-C
+
+- Run tests:
+
+```
+rspec spec/
+```
+
+
+#### Run with Docker:
+
+- This should be enouth to play with the web application:
+
+```
+docker-compose build 
+docker-compose up -d 
+docker-compose exec web bin/rails db:create db:migrate
+docker-compose exec web bin/rails console
+
+#inside rails console run:
+
+adm = User.create(full_name: "Admin", email: "admin@admin.com", password: "123456", password_confirmation: "123456")
+adm.admin!
+
+u = User.create(full_name: "ADD YOU NAME HERE", email: "ADD YOUR EMAIL HERE", password: "SET A PASSWORD", password_confirmation: "CONFIRM YOUR PASSWORD")
+
+u.admin!
+
+exit
+```
+
+- To run tests in docker:
+
+```
+docker-compose exec web rspec spec
+```
+
+
+
+
 # Fullstack Developer Test
 
 - Check this readme.md
