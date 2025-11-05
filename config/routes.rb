@@ -1,41 +1,29 @@
 Rails.application.routes.draw do
-  get "profiles/show"
-  get "profiles/edit"
-  get "profiles/update"
-  get "profiles/destroy"
+  # This MUST be at the top, outside any 'admin' namespace
   devise_for :users
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-
+  # Admin-specific routes
   namespace :admin do
-    get "user_imports/new"
-    get "user_imports/create"
-    get "user_imports/show"
-    get "users/index"
-    get "users/show"
-    get "users/new"
-    get "users/create"
-    get "users/edit"
-    get "users/update"
-    get "users/destroy"
-    get "dashboard/show"
     get "dashboard", to: "dashboard#show"
-
     resources :users
-
     patch "users/:id/toggle_role", to: "users#toggle_role", as: :toggle_user_role
-
     resources :user_imports, only: [ :new, :create, :show ]
   end
 
+  # User Profile routes
   resource :profile, only: [ :show, :edit, :update, :destroy ]
-  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
-  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
-  # Defines the root path route ("/")
+  # Root path
+  # This logic will redirect signed-in users correctly
   root "profiles#show"
-  get "up" => "rails/health#show", as: :rails_health_check
+
+  # As a fallback, redirect admins to their dashboard if they hit the root
+  authenticated :user, ->(u) { u.admin? } do
+    root to: "admin/dashboard#show", as: :admin_root
+  end
+
+  # Redirect regular users to their profile
+  authenticated :user do
+    root to: "profiles#show", as: :user_root
+  end
 end

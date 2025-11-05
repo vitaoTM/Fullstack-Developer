@@ -5,7 +5,7 @@ class Admin::BaseController < ApplicationController
 
   def require_admin
     unless current_user.admin?
-      flash[:notice] = "You must be an admin to access this section"
+      flash[:alert] = "You must be an admin to access this section."
       redirect_to profile_path
     end
   end

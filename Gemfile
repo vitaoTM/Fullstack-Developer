@@ -71,3 +71,13 @@ gem "down", "~> 5.4"
 gem "foreman", "~> 0.90.0"
 
 gem "tailwindcss-rails", "~> 4.4"
+
+# Gemfile
+group :development, :test do
+  gem "rspec-rails"       # The main RSpec testing framework
+  gem "factory_bot_rails" # For creating test data ("factories")
+  gem "faker"             # For generating fake data (names, emails)
+  gem "shoulda-matchers"  # For simple one-line tests (e.g., "validate_presence_of")
+  gem "rspec-sidekiq"
+  gem "pundit-matchers", "~>4.0"
+end
