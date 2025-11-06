@@ -45,6 +45,7 @@ docker-compose exec web bin/rails db:setup
 ```
 
 3. Create admin User
+   
 You'll need to create the first user via rails console
 
 
